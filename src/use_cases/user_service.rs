@@ -14,8 +14,8 @@ impl<T: UserRepository> UserService<T> {
         self.repo.get_user_by_id(id)
     }
 
-    pub fn create_user(&mut self, id: u32, name: String, email: String) {
-        let user = User::new(id, name, email);
+    pub fn create_user(&mut self, name: String, email: String) {
+        let user = User::new(name, email);
         self.repo.add_user(user);
     }
 }
