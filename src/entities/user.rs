@@ -6,7 +6,7 @@ pub struct User {
 }
 
 impl User {
-    pub fn new(id: u32, name: String, email: String) -> Self {
-        Self { id, name, email }
+    pub fn new(name: String, email: String) -> Self {
+        Self { id: 0, name, email }
     }
 }

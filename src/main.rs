@@ -10,8 +10,8 @@ fn main() {
     let repo = InMemoryUserRepository::new();
     let mut service = UserService::new(repo);
 
-    service.create_user(1, "Alice".to_string(), "alice@example.com".to_string());
-    service.create_user(2, "Bob".to_string(), "bob@example.com".to_string());
+    service.create_user("Alice".to_string(), "alice@example.com".to_string());
+    service.create_user("Bob".to_string(), "bob@example.com".to_string());
 
     if let Some(user) = service.get_user(1) {
         println!(
