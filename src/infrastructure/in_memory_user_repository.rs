@@ -4,12 +4,14 @@ use std::collections::HashMap;
 
 pub struct InMemoryUserRepository {
     users: HashMap<u32, User>,
+    next_id: u32,
 }
 
 impl InMemoryUserRepository {
     pub fn new() -> Self {
         Self {
             users: HashMap::new(),
+            next_id: 1,
         }
     }
 }
@@ -19,7 +21,9 @@ impl UserRepository for InMemoryUserRepository {
         self.users.get(&id).cloned()
     }
 
-    fn add_user(&mut self, user: User) {
-        self.users.insert(user.id, user);
+    fn add_user(&mut self, mut user: User) {
+        user.id = self.next_id;
+        self.users.insert(self.next_id, user);
+        self.next_id += 1;
     }
 }
