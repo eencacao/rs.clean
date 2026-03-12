@@ -1,13 +1,7 @@
-mod entities;
-mod infrastructure;
-mod interfaces;
-mod usecases;
-mod adapters;
-
 use tiny_http::Server;
-use infrastructure::memory_repo::MemoryRepo;
-use usecases::todo_usecase::TodoUseCase;
-use adapters::{router, item_router, handler};
+use rs_clean::infrastructure::memory_repo::MemoryRepo;
+use rs_clean::usecases::todo_usecase::TodoUseCase;
+use rs_clean::adapters::{router, item_router, handler};
 
 fn route(uc: &mut TodoUseCase<MemoryRepo>, req: tiny_http::Request) {
     let method = req.method().as_str().to_string();
@@ -41,9 +35,11 @@ fn route(uc: &mut TodoUseCase<MemoryRepo>, req: tiny_http::Request) {
 }
 
 fn main() {
-    let server = Server::http("0.0.0.0:8080").unwrap();
+    let port = std::env::var("PORT").unwrap_or_else(|_| "8080".into());
+    let addr = format!("0.0.0.0:{}", port);
+    let server = Server::http(&addr).unwrap();
     let mut uc = TodoUseCase::new(MemoryRepo::new());
-    println!("Listening on :8080");
+    println!("Listening on :{}", port);
     for req in server.incoming_requests() {
         route(&mut uc, req);
     }

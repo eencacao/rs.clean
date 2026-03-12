@@ -3,6 +3,14 @@ name = "rs_clean"
 version = "0.1.0"
 edition = "2021"
 
+[[bin]]
+name = "rs_clean"
+path = "src/main.rs"
+
+[lib]
+name = "rs_clean"
+path = "src/lib.rs"
+
 [dependencies]
 tiny_http = "0.12"
 serde = { version = "1", features = ["derive"] }
